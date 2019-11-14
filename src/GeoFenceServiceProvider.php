@@ -10,6 +10,7 @@ namespace Salman\GeoFence;
 
 use Illuminate\Support\ServiceProvider;
 use Salman\GeoFence\Commands\GeoFence;
+use Salman\GeoFence\Service\GeoFenceCalculator;
 
 class GeoFenceServiceProvider extends ServiceProvider
 {
@@ -17,11 +18,29 @@ class GeoFenceServiceProvider extends ServiceProvider
     public function register()
     {
        $this->LoadAndMergeConfig();
+       $this->ConvertToSingleton();
     }
 
     public function boot()
     {
         $this->LoadAndRegisterCommand();
+    }
+
+    /**
+     * @return array
+     */
+    public function provides()
+    {
+        return ['GeoFence'];
+    }
+
+
+    protected function ConvertToSingleton()
+    {
+        $this->app->singleton('GeoFence',function (){
+
+            return new GeoFenceCalculator();
+        });
     }
 
     protected function LoadAndMergeConfig()
