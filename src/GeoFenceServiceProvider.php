@@ -9,6 +9,7 @@
 namespace Salman\GeoFence;
 
 use Illuminate\Support\ServiceProvider;
+use Salman\GeoFence\Commands\GeoFence;
 
 class GeoFenceServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,7 @@ class GeoFenceServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
+        $this->LoadAndRegisterCommand();
     }
 
     protected function LoadAndMergeConfig()
@@ -28,6 +29,13 @@ class GeoFenceServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/config/geofence.php','geofence');
         $this->publishes([
             __DIR__.'/config/geofence.php' => config_path('geofence.php'),
+        ]);
+    }
+
+    protected function LoadAndRegisterCommand()
+    {
+        $this->commands([
+            GeoFence::class,
         ]);
     }
 
