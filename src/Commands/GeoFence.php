@@ -3,6 +3,7 @@
 namespace Salman\GeoFence\Commands;
 
 use Illuminate\Console\Command;
+use Salman\GeoFence\Service\GeoFenceService;
 
 class GeoFence extends Command
 {
@@ -11,7 +12,7 @@ class GeoFence extends Command
      *
      * @var string
      */
-    protected $signature = 'geo:fence {long1: longitude} {long2: longitude} {lat1: latitude} {lat2: latitude}';
+    protected $signature = 'geo:fence';
 
     /**
      * The console command description.
@@ -37,6 +38,23 @@ class GeoFence extends Command
      */
     public function handle()
     {
-        //
+        $this->info("**************************************************");
+        $this->info("* Welcome To Geo Fence Calculator                *");
+        $this->info("**************************************************");
+
+        $lat1  = $this->ask('Enter latitude 1: ');
+        $lat2  = $this->ask('Enter latitude 2: ');
+        $long1 = $this->ask('Enter Longitude 1: ');
+        $long2 = $this->ask('Enter Longitude 2: ');
+        $unit = $this->ask('Enter Unit k\M: ');
+
+        if (empty($lat1) || empty($lat2) || empty($long1) || empty($long2) || empty($unit))
+        {
+            $this->info('Please add all the values. Exiting');
+        }
+
+        $output = GeoFenceService::MeasureDistance($lat1, $long1, $lat2, $long2, $unit);
+
+        $this->info('Measured distance is: '. $output. ' '. $unit);
     }
 }
