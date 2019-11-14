@@ -9,6 +9,38 @@
             "email": "salmanzafar949@gmail.com"
         }
     ],
+    "keywords": [
+        "laravel",
+        "laravel5",
+        "mqtt-laravel",
+        "mqtt-laravel-publisher",
+        "mqtt-laravel-subscriber",
+        "laravel mqtt library",
+        "laravel-mqtt",
+        "laravel mqtt",
+        "mqtt laravel"
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "laravel/framework": ">=5.0"
+    },
     "minimum-stability": "dev",
-    "require": {}
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Salman\\GeoFence\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Salman\\GeoFence\\GeoFenceServiceProvider"
+            ],
+            "aliases": {
+                "Mqtt": "Salman\\GeoFence\\Facades\\GeoFence"
+            }
+        }
+    }
 }
