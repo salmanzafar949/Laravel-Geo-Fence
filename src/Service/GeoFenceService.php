@@ -8,7 +8,7 @@ class GeoFenceService
 {
 
     /**********************************************************************
-     * Measure Distance                                                   *
+     * Measure Distance between two coordinates                           *
     ***********************************************************************/
 
     public static function MeasureDistance($lat1, $lon1, $lat2, $lon2, $unit)
@@ -26,15 +26,22 @@ class GeoFenceService
             $miles = $dist * 60 * 1.1515;
             $unit = strtoupper($unit);
 
-            switch ($unit)
-            {
-                case "K":
-                    return round(($miles * 1.609344), 2);
-                case "N":
-                    return ($miles * 0.8684);
-                default:
-                    return $miles;
-            }
+            $distance = self::ConvertDistanceInUnits($unit, $miles);
+
+            return $distance;
+        }
+    }
+
+    protected static function ConvertDistanceInUnits($unit, $miles)
+    {
+        switch ($unit)
+        {
+            case "K":
+                return round(($miles * 1.609344), 2);
+            case "N":
+                return ($miles * 0.8684);
+            default:
+                return $miles;
         }
     }
 }
