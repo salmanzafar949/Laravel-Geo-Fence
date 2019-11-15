@@ -73,7 +73,7 @@ output: 1564.6
 #### Measure Distance using command
 
 ```php
-pa geo:fence
+php artisan geo:fence
 
 **************************************************
 * Welcome To Geo Fence Calculator                *
